@@ -108,14 +108,14 @@ void TrackCenter() {
     KalmanFilter KF(4, 2, 0); //states, measurements, inputs
 
     // Setup matrices
-    KF.transitionMatrix = Mat::eye(4, 4, CV_32F); 
+    KF.transitionMatrix = Mat::eye(4, 4, CV_32F);               // relationship between time t and t-1 
     Mat_<float> measurement(2,1); measurement.setTo(Scalar(0));
     
     // Setup initial states. Tuning done here...
     for (int i=0; i<4; i++)
-        KF.statePre.at<float>(i) = 0;
+        KF.statePre.at<float>(i) = 0;                           // initial state values
     setIdentity(KF.measurementMatrix);
-    setIdentity(KF.processNoiseCov, Scalar::all(1e-4));
+    setIdentity(KF.processNoiseCov, Scalar::all(1e-4));         // our system will have low noise and error
     setIdentity(KF.measurementNoiseCov, Scalar::all(10));
     setIdentity(KF.errorCovPost, Scalar::all(.1));
 
